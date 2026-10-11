@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ôn tập Quân, binh chủng trong Quân đội</title>
+<style>
+:root{--navy:#12315a;--blue:#1e5aa8;--orange:#f28c28;--bg:#f3f6fb;--ink:#1f2937;--muted:#64748b;--green:#15803d;--red:#b91c1c}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);font-family:Arial,Helvetica,sans-serif;color:var(--ink);line-height:1.55}
+header{background:linear-gradient(125deg,var(--navy),var(--blue));color:white;padding:32px 18px 28px;border-bottom:5px solid var(--orange)}
+.hero{max-width:980px;margin:auto}header .tag{display:inline-block;background:#ffffff20;border:1px solid #ffffff45;border-radius:99px;padding:5px 12px;font-size:13px}
+h1{font-size:clamp(25px,4vw,36px);line-height:1.2;margin:14px 0 8px}header p{margin:0;color:#e6efff}
+main{max-width:980px;margin:22px auto;padding:0 15px 40px}.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:16px}
+.progress-wrap{flex:1;min-width:210px;background:#dbe5f2;height:10px;border-radius:20px;overflow:hidden}.progress{height:100%;width:0;background:var(--orange);transition:width .2s}
+.stats{font-size:14px;color:var(--muted);font-weight:700}
+button{border:0;border-radius:10px;padding:11px 15px;font-weight:700;cursor:pointer;font-size:14px}
+.primary{background:var(--blue);color:white}.secondary{background:white;border:1px solid #cbd5e1;color:var(--navy)}button:hover{filter:brightness(.96)}
+.question{background:white;border:1px solid #e1e8f0;border-radius:15px;padding:20px;margin:14px 0;box-shadow:0 3px 12px #12315a08}
+.qtop{display:flex;gap:12px;align-items:flex-start}.num{background:#e9f1ff;color:var(--blue);font-weight:800;border-radius:9px;padding:5px 9px;flex-shrink:0}.qtext{font-size:17px;font-weight:700;margin:2px 0 14px}
+.options{display:grid;gap:9px}.option{display:flex;align-items:flex-start;gap:10px;border:1px solid #dce4ee;border-radius:10px;padding:11px 12px;cursor:pointer;background:#fff}.option:hover{background:#f8fbff;border-color:#93b4e8}.option input{margin-top:5px;accent-color:var(--blue)}.option.correct{border-color:#86d3a0;background:#f0fdf4}.option.wrong{border-color:#f4a3a3;background:#fef2f2}
+.feedback{display:none;margin-top:12px;border-radius:9px;padding:11px 13px;font-size:14px}.feedback.show{display:block}.feedback.good{background:#f0fdf4;color:#166534}.feedback.bad{background:#fff7ed;color:#9a3412}
+.results{display:none;background:white;border:1px solid #dce4ee;border-radius:15px;padding:22px;margin:20px 0}.results.show{display:block}.score{font-size:30px;font-weight:800;color:var(--blue)}.small{font-size:13px;color:var(--muted)}footer{text-align:center;color:var(--muted);font-size:13px;padding:0 15px 28px}
+@media(max-width:600px){header{padding-top:25px}.question{padding:15px}.qtext{font-size:16px}.toolbar button{flex:1}}
+</style>
+</head>
+<body>
+<header><div class="hero"><span class="tag">WEBSITE ÔN TẬP • 25 CÂU TRẮC NGHIỆM</span><h1>Hiểu biết chung về các quân, binh chủng trong Quân đội</h1><p>Luyện tập kiến thức lịch sử, chức năng, cơ cấu tổ chức và nhiệm vụ khái quát theo bài giảng C3.</p></div></header>
+<main>
+<div class="toolbar"><div class="progress-wrap"><div class="progress" id="progress"></div></div><span class="stats" id="answered">Đã trả lời: 0/25</span><button class="primary" id="gradeBtn">Chấm điểm</button><button class="secondary" id="resetBtn">Làm lại</button></div>
+<div id="result" class="results" aria-live="polite"></div>
+<div id="quiz"></div>
+<div class="toolbar"><button class="primary" id="gradeBottom">Chấm điểm</button><button class="secondary" id="resetBottom">Làm lại từ đầu</button></div>
+<p class="small">Lưu ý: Đây là bộ câu hỏi ôn tập kiến thức khái quát, được biên soạn dựa trên bài giảng được cung cấp. Với nội dung tổ chức có thể thay đổi theo thời gian, hãy ưu tiên tài liệu chính thức mới nhất của giảng viên.</p>
+</main>
+<footer>Trang ôn tập chạy trực tiếp trên trình duyệt, không cần cài đặt hoặc kết nối mạng.</footer>
+<script>
+const questions = [
+{q:"Theo bài giảng, Quân đội nhân dân Việt Nam được xác định có những chức năng cơ bản nào?",a:["Đội quân chiến đấu, đội quân công tác và đội quân lao động sản xuất","Chỉ thực hiện nhiệm vụ chiến đấu","Chỉ thực hiện nhiệm vụ phát triển kinh tế","Chỉ làm nhiệm vụ đào tạo"],c:0,e:"Bài giảng nêu ba chức năng: chiến đấu, công tác và lao động sản xuất."},
+{q:"Đội Việt Nam Tuyên truyền Giải phóng quân được thành lập vào ngày nào?",a:["2/9/1945","22/12/1944","7/5/1955","19/8/1945"],c:1,e:"Theo bài giảng, lực lượng tiền thân của Quân đội nhân dân Việt Nam được thành lập ngày 22/12/1944."},
+{q:"Đội Việt Nam Tuyên truyền Giải phóng quân khi mới thành lập có bao nhiêu cán bộ, chiến sĩ theo bài giảng?",a:["24","34","44","54"],c:1,e:"Bài giảng ghi nhận lực lượng ban đầu có 34 cán bộ, chiến sĩ."},
+{q:"Hai trận đánh đầu tiên được bài giảng nhắc đến là những trận nào?",a:["Phai Khắt và Nà Ngần","Điện Biên Phủ và Hà Nội","Huế và Đà Nẵng","Cao Bằng và Lạng Sơn"],c:0,e:"Bài giảng nhắc đến Phai Khắt và Nà Ngần sau khi đội được thành lập."},
+{q:"Theo bài giảng, Quân đội nhân dân Việt Nam phát huy truyền thống nào?",a:["Tách rời nhân dân","Trung thành với Tổ quốc và nhân dân","Chỉ tập trung hoạt động kinh tế","Không tham gia cứu hộ"],c:1,e:"Bài giảng nhấn mạnh truyền thống gắn bó với nhân dân và nhiệm vụ bảo vệ Tổ quốc."},
+{q:"Chức năng đội quân công tác được thể hiện qua hoạt động nào?",a:["Tham gia dân vận, hỗ trợ phòng chống thiên tai và cứu hộ cứu nạn","Chỉ quản lý trường học","Chỉ sản xuất hàng tiêu dùng","Chỉ tổ chức hoạt động thể thao"],c:0,e:"Bài giảng nêu công tác dân vận, hỗ trợ cộng đồng, phòng chống thiên tai và cứu nạn."},
+{q:"Chức năng lao động sản xuất gắn với nội dung nào?",a:["Kết hợp nhiệm vụ quốc phòng với phát triển kinh tế - xã hội","Thay thế mọi hoạt động dân sự","Chỉ nghiên cứu lịch sử","Chỉ thực hiện nghi lễ"],c:0,e:"Các đơn vị kinh tế - quốc phòng góp phần phát triển kinh tế đồng thời thực hiện nhiệm vụ quốc phòng."},
+{q:"Cơ cấu tổ chức Quân đội nhân dân Việt Nam theo bài giảng có thành phần nào?",a:["Chỉ có bộ đội chủ lực","Bộ đội chủ lực, bộ đội địa phương cùng các cơ quan, đơn vị và lực lượng liên quan","Chỉ có các học viện","Chỉ có các đơn vị kinh tế"],c:1,e:"Bài giảng nêu nhiều thành phần như bộ đội chủ lực, bộ đội địa phương, quân khu, quân chủng, binh chủng, đơn vị bảo đảm và nhà trường."},
+{q:"Quân chủng Hải quân có vai trò khái quát nào được nêu trong bài giảng?",a:["Lực lượng nòng cốt bảo vệ chủ quyền biển, đảo","Quản lý toàn bộ trường học dân sự","Chỉ phụ trách vận tải đường bộ","Chỉ làm công tác lưu trữ"],c:0,e:"Bài giảng xác định Hải quân là lực lượng nòng cốt bảo vệ chủ quyền, quyền chủ quyền và lợi ích quốc gia trên biển."},
+{q:"Ngày thành lập Quân chủng Hải quân được ghi trong bài giảng là ngày nào?",a:["7/5/1955","22/10/1963","5/10/1959","9/9/1945"],c:0,e:"Bài giảng ghi ngày thành lập Quân chủng Hải quân là 7/5/1955."},
+{q:"Quân chủng Phòng không - Không quân được thành lập vào ngày nào theo bài giảng?",a:["19/4/1958","22/10/1963","25/3/1946","19/3/1967"],c:1,e:"Bài giảng ghi ngày thành lập là 22/10/1963."},
+{q:"Nhiệm vụ khái quát của Quân chủng Phòng không - Không quân là gì?",a:["Quản lý, bảo vệ vùng trời và thực hiện nhiệm vụ phòng không, không quân","Chỉ xây dựng công trình dân dụng","Chỉ bảo đảm thông tin liên lạc","Chỉ làm công tác hậu cần"],c:0,e:"Bài giảng mô tả lực lượng này là nòng cốt trong quản lý, bảo vệ vùng trời Tổ quốc."},
+{q:"Theo bài giảng, Binh chủng Tăng thiết giáp được thành lập ngày nào?",a:["5/10/1959","7/5/1955","9/9/1945","25/3/1946"],c:0,e:"Bài giảng ghi ngày thành lập Binh chủng Tăng thiết giáp là 5/10/1959."},
+{q:"Binh chủng Công binh được mô tả khái quát là lực lượng nào?",a:["Binh chủng bảo đảm chiến đấu và chuyên môn về công trình","Lực lượng chỉ phụ trách đối ngoại","Lực lượng chỉ phụ trách văn nghệ","Lực lượng chỉ làm công tác giáo dục phổ thông"],c:0,e:"Bài giảng nêu Công binh là binh chủng bảo đảm chiến đấu, tham gia bảo đảm công trình và xây dựng công trình quốc phòng."},
+{q:"Binh chủng Thông tin liên lạc có nhiệm vụ khái quát nào?",a:["Bảo đảm thông tin liên lạc phục vụ chỉ huy và phối hợp giữa các lực lượng","Quản lý chủ quyền biển đảo","Chỉ thực hiện vận tải đường biển","Chỉ nghiên cứu lịch sử"],c:0,e:"Bài giảng nêu nhiệm vụ bảo đảm thông tin cho chỉ huy, hiệp đồng, hậu cần và kỹ thuật."},
+{q:"Binh chủng Hóa học được bài giảng xếp vào nhóm chức năng nào?",a:["Binh chủng bảo đảm chiến đấu, chuyên môn","Cơ quan quản lý giáo dục","Đơn vị chuyên về vận tải dân sự","Cơ quan lưu trữ quốc gia"],c:0,e:"Bài giảng mô tả Hóa học là binh chủng bảo đảm chiến đấu và binh chủng chuyên môn."},
+{q:"Theo bài giảng, Binh chủng Hóa học được thành lập ngày nào?",a:["19/4/1958","19/3/1967","29/6/1946","22/12/1944"],c:0,e:"Bài giảng ghi ngày thành lập là 19/4/1958."},
+{q:"Binh chủng Đặc công có ngày thành lập chính thức được nêu trong bài giảng là ngày nào?",a:["19/3/1967","7/9/1954","31/1/1968","5/2/1949"],c:0,e:"Theo bài giảng, ngày thành lập chính thức là 19/3/1967."},
+{q:"Binh chủng Pháo binh - Tên lửa được mô tả khái quát là lực lượng nào?",a:["Một binh chủng chiến đấu thuộc lực lượng mặt đất","Một cơ quan đào tạo giáo viên phổ thông","Một đơn vị quản lý thư viện","Một cơ quan ngoại giao dân sự"],c:0,e:"Bài giảng mô tả đây là binh chủng chiến đấu, có vai trò hỏa lực trong lực lượng mặt đất."},
+{q:"Bài giảng ghi ngày thành lập ban đầu của lực lượng pháo binh là ngày nào?",a:["29/6/1946","19/4/1958","7/5/1955","22/10/1963"],c:0,e:"Bài giảng nêu lực lượng pháo binh được thành lập ngày 29/6/1946."},
+{q:"Ngày thành lập Binh chủng Công binh được nêu trong bài giảng là ngày nào?",a:["25/3/1946","5/10/1959","9/9/1945","19/3/1967"],c:0,e:"Bài giảng ghi ngày thành lập là 25/3/1946."},
+{q:"Ngày thành lập Binh chủng Thông tin liên lạc được ghi trong bài giảng là ngày nào?",a:["9/9/1945","7/5/1955","19/4/1958","22/10/1963"],c:0,e:"Bài giảng ghi ngày thành lập là 9/9/1945."},
+{q:"Trong cơ cấu tổ chức được mô tả, Bộ Tư lệnh quân chủng/binh chủng thường có những bộ phận tham mưu, bảo đảm nào?",a:["Tham mưu, chính trị, hậu cần và kỹ thuật","Chỉ có bộ phận truyền thông xã hội","Chỉ có bộ phận tuyển sinh","Chỉ có bộ phận tài chính dân sự"],c:0,e:"Mô tả tổ chức trong bài giảng thường liệt kê các cơ quan tham mưu, chính trị, hậu cần và kỹ thuật."},
+{q:"Theo bài giảng, hoạt động nào thể hiện việc Quân đội tham gia hỗ trợ xã hội?",a:["Phòng chống bão lụt, tìm kiếm cứu hộ, cứu nạn và khắc phục hậu quả thiên tai","Chỉ tổ chức hội chợ thương mại","Chỉ quản lý giao thông đô thị","Chỉ tổ chức thi học kỳ"],c:0,e:"Bài giảng nhấn mạnh sự tham gia hỗ trợ nhân dân trong thiên tai, thảm họa và cứu nạn."},
+{q:"Mục tiêu chung của việc xây dựng Quân đội được bài giảng nhấn mạnh là gì?",a:["Xây dựng lực lượng cách mạng, chính quy, tinh nhuệ, từng bước hiện đại","Chỉ tăng số lượng cơ quan hành chính","Chỉ phát triển hoạt động giải trí","Không cần huấn luyện"],c:0,e:"Đây là định hướng được bài giảng nêu khi trình bày chủ trương xây dựng Quân đội."}
+];
+const quiz=document.getElementById('quiz'), result=document.getElementById('result');
+function render(){
+ quiz.innerHTML='';
+ questions.forEach((item,i)=>{
+  const card=document.createElement('section');card.className='question';card.id='q'+i;
+  const top=document.createElement('div');top.className='qtop';
+  const num=document.createElement('span');num.className='num';num.textContent=String(i+1).padStart(2,'0');
+  const body=document.createElement('div');body.style.flex='1';
+  const q=document.createElement('div');q.className='qtext';q.textContent=item.q;body.appendChild(q);
+  const opts=document.createElement('div');opts.className='options';
+  item.a.forEach((answer,j)=>{
+   const label=document.createElement('label');label.className='option';
+   const input=document.createElement('input');input.type='radio';input.name='q'+i;input.value=j;
+   input.addEventListener('change',updateProgress);
+   const span=document.createElement('span');span.textContent=String.fromCharCode(65+j)+'. '+answer;
+   label.append(input,span);opts.appendChild(label);
+  });
+  body.appendChild(opts);const fb=document.createElement('div');fb.className='feedback';fb.id='fb'+i;body.appendChild(fb);
+  top.append(num,body);card.appendChild(top);quiz.appendChild(card);
+ });
+ updateProgress();
+}
+function updateProgress(){
+ const count=questions.filter((_,i)=>document.querySelector('input[name="q'+i+'"]:checked')).length;
+ document.getElementById('answered').textContent='Đã trả lời: '+count+'/'+questions.length;
+ document.getElementById('progress').style.width=(count/questions.length*100)+'%';
+}
+function grade(){
+ let score=0,answered=0;
+ questions.forEach((item,i)=>{
+  const card=document.getElementById('q'+i),selected=document.querySelector('input[name="q'+i+'"]:checked'),fb=document.getElementById('fb'+i);
+  const labels=card.querySelectorAll('.option');labels.forEach((l,j)=>{l.classList.remove('correct','wrong');if(j===item.c)l.classList.add('correct')});
+  if(selected){answered++;if(Number(selected.value)===item.c)score++;else labels[Number(selected.value)].classList.add('wrong')}
+  fb.className='feedback show '+(selected&&Number(selected.value)===item.c?'good':'bad');
+  fb.textContent=(selected&&Number(selected.value)===item.c?'Chính xác. ':'Đáp án đúng: '+String.fromCharCode(65+item.c)+'. ')+item.e;
+ });
+ const percent=Math.round(score/questions.length*100);
+ result.className='results show';
+ result.innerHTML='<div class="small">KẾT QUẢ BÀI LÀM</div><div class="score">'+score+'/'+questions.length+' câu đúng ('+percent+'%)</div><p>Bạn đã trả lời '+answered+'/'+questions.length+' câu.</p><p>'+(percent>=80?'Rất tốt! Hãy tiếp tục ôn lại các câu chưa chắc chắn.':percent>=60?'Khá tốt. Hãy đọc phần giải thích và thử lại để ghi nhớ lâu hơn.':'Bạn nên xem lại bài giảng rồi làm lại bài trắc nghiệm.')+'</p>';
+ result.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function resetQuiz(){document.querySelectorAll('input[type="radio"]').forEach(x=>x.checked=false);document.querySelectorAll('.option').forEach(x=>x.classList.remove('correct','wrong'));document.querySelectorAll('.feedback').forEach(x=>{x.className='feedback';x.textContent=''});result.className='results';result.innerHTML='';updateProgress();window.scrollTo({top:0,behavior:'smooth'})}
+document.getElementById('gradeBtn').addEventListener('click',grade);document.getElementById('gradeBottom').addEventListener('click',grade);document.getElementById('resetBtn').addEventListener('click',resetQuiz);document.getElementById('resetBottom').addEventListener('click',resetQuiz);
+render();
+</script>
+</body>
+</html>
